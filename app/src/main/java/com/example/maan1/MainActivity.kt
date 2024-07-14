@@ -1,8 +1,10 @@
 package com.example.maan1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +12,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    var btn: Button?=null
+    var btn : Button? = null
+    var btn2 : Button? = null
+    var editText1 : EditText? = null
+    var editText2 : EditText? = null
+    var editText3 : EditText? = null
+    var editText4 : EditText? = null
+    var editText5 : EditText? = null
+    var editText6 : EditText? = null
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toast.makeText(this,"On create ",Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -21,42 +30,64 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        btn=findViewById(R.id.info)
-        btn?.setOnClickListener {
-            var intent= Intent(this,MainActivity2::class.java)
-            startActivity(intent)
+
+        btn = findViewById(R.id.btnSave)
+        btn2 = findViewById(R.id.btnCancle)
+        editText1 = findViewById(R.id.etName)
+        editText2 = findViewById(R.id.etContact)
+        editText3 = findViewById(R.id.etEmail)
+        editText4 = findViewById(R.id.etAddress)
+        editText5 = findViewById(R.id.etPassword)
+        editText6 = findViewById(R.id.etConfirmPassword)
+
+
+
+        btn?.setOnClickListener{
+
+
+            if(editText1?.text.toString().isNullOrEmpty() || editText2?.text.toString().isNullOrEmpty() || editText3?.text.toString().isNullOrEmpty() || editText4?.text.toString().isNullOrEmpty() || editText5?.text.toString().isNullOrEmpty() || editText6?.text.toString().isNullOrEmpty() ){
+                Toast.makeText(this,"Please Enter full details ",Toast.LENGTH_SHORT).show()
+                if(editText1?.text.toString().isNullOrEmpty()){
+                    editText1?.error="Enter Name"
+                }
+                if(editText2?.text.toString().isNullOrEmpty()){
+                    editText2?.error="Enter Contact"
+                }
+                if(editText3?.text.toString().isNullOrEmpty()){
+                    editText3?.error="Enter Email"
+                }
+                if(editText4?.text.toString().isNullOrEmpty()){
+                    editText4?.error="Enter Address"
+                }
+                if(editText5?.text.toString().isNullOrEmpty()){
+                    editText5?.error="Enter Password"
+                }
+                if(editText6?.text.toString().isNullOrEmpty()){
+                    editText6?.error="Enter Confirm Password"
+                }
+
+
+            }
+
+            else if(editText6?.text.toString() != editText5?.text.toString()){
+                editText6?.error=" Password does't match "
+            }
+
+            else {
+                val intent = Intent(this,MainActivity2::class.java)
+
+                startActivity(intent)
+            }
+
         }
-
-
-    }
-    override fun onStart() {
-        super.onStart()
-        Toast.makeText(this,"On start",Toast.LENGTH_SHORT).show()
+        btn2?.setOnClickListener{
+            Toast.makeText(this,editText1?.text.toString(),Toast.LENGTH_SHORT).show()
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(this,"On resume", Toast.LENGTH_SHORT).show()
-    }
 
-    override fun onStop() {
-        super.onStop()
-        Toast.makeText(this,"On stop", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Toast.makeText(this,"On destroy", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Toast.makeText(this,"On Restart ", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Toast.makeText(this,"On Pause", Toast.LENGTH_SHORT).show()
-    }
 
 }
+
+
+
